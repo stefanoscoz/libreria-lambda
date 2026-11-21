@@ -10,11 +10,11 @@
   <DefaultLocale>it-IT</DefaultLocale>
   <DisplayName DefaultValue="Libreria LAMBDA"/>
   <Description DefaultValue="Raccolta personale di formule LAMBDA da inserire nella cartella di lavoro aperta."/>
-  <IconUrl DefaultValue="https://https://stefanoscoz.github.io/libreria-lambda/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://https://stefanoscoz.github.io/libreria-lambda/taskpane.html/assets/icon-64.png"/>
-  <SupportUrl DefaultValue="https://https://stefanoscoz.github.io/libreria-lambda/taskpane.html/LEGGIMI.html"/>
+  <IconUrl DefaultValue="https://stefanoscoz.github.io/libreria-lambda/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://stefanoscoz.github.io/libreria-lambda/taskpane.html/assets/icon-64.png"/>
+  <SupportUrl DefaultValue="https://stefanoscoz.github.io/libreria-lambda/taskpane.html/LEGGIMI.html"/>
   <AppDomains>
-    <AppDomain>https://https://stefanoscoz.github.io/libreria-lambda/taskpane.html</AppDomain>
+    <AppDomain>https://stefanoscoz.github.io/libreria-lambda/taskpane.html</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Workbook"/>
