@@ -1,0 +1,78 @@
+:root {
+  --navy: #0B1F3A;
+  --oro: #B08D3E;
+  --oro-scuro: #8A6A22;
+  --crema: #FAF8F3;
+  --bordo: #D9D2C3;
+  --testo: #2B2B2B;
+  --grigio: #5B5B5B;
+  --errore: #A12B2B;
+  --ok: #2E6B3A;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0 14px 16px;
+  font-family: -apple-system, "Segoe UI", Calibri, Arial, sans-serif;
+  font-size: 14px;
+  color: var(--testo);
+  background: var(--crema);
+}
+header { padding: 16px 0 8px; border-bottom: 2px solid var(--oro); margin-bottom: 12px; }
+h1 { font-family: Georgia, serif; font-size: 22px; color: var(--navy); margin: 0; }
+h2 { font-family: Georgia, serif; font-size: 17px; color: var(--navy); margin: 0 0 8px; }
+.sub { margin: 4px 0 0; color: var(--grigio); }
+.barra input[type="search"] { width: 100%; }
+input, textarea {
+  width: 100%;
+  padding: 7px 8px;
+  border: 1px solid var(--bordo);
+  border-radius: 4px;
+  font: inherit;
+  background: #fff;
+}
+textarea { font-family: Menlo, "Courier New", monospace; font-size: 12px; resize: vertical; }
+label { display: block; margin: 10px 0 4px; font-weight: 600; color: var(--navy); font-size: 13px; }
+.pulsanti { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+button {
+  border: 1px solid var(--navy);
+  background: #fff;
+  color: var(--navy);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+button:hover { background: #EEF1F5; }
+button.primario { background: var(--navy); color: #fff; }
+button.primario:hover { background: #16325a; }
+button.attenzione { border-color: var(--errore); color: var(--errore); }
+button:disabled { opacity: .5; cursor: default; }
+.modulo { background: #fff; border: 1px solid var(--bordo); border-radius: 6px; padding: 12px; margin-top: 12px; }
+.nascosto { display: none; }
+.nota { color: var(--grigio); font-size: 12px; margin: 0 0 8px; }
+.elenco { list-style: none; margin: 14px 0 0; padding: 0; }
+.voce { background: #fff; border: 1px solid var(--bordo); border-top: 3px solid var(--oro); border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
+.voce .nome { font-weight: 700; color: var(--navy); font-size: 15px; }
+.voce .tag { font-size: 11px; color: var(--oro-scuro); margin-left: 6px; text-transform: uppercase; letter-spacing: .04em; }
+.voce .descr { color: var(--grigio); margin: 4px 0 6px; font-size: 13px; }
+.voce pre {
+  background: var(--navy);
+  color: #F3EFE6;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 6px 0 0;
+  max-height: 160px;
+  overflow: auto;
+}
+.voce details summary { cursor: pointer; color: var(--navy); font-size: 12px; }
+.stato { display: none; padding: 8px 10px; border-radius: 4px; margin-bottom: 8px; font-size: 13px; }
+.stato.ok { display: block; background: #E5F4E4; color: var(--ok); }
+.stato.errore { display: block; background: #FBEBEB; color: var(--errore); }
+.stato.info { display: block; background: #E7F1FB; color: var(--navy); }
+.vuoto { color: var(--grigio); text-align: center; padding: 16px; }
+footer { margin-top: 16px; color: var(--grigio); font-size: 11px; border-top: 1px solid var(--bordo); padding-top: 8px; }

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Libreria LAMBDA - istruzioni</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", Calibri, Arial, sans-serif; max-width: 760px; margin: 32px auto; padding: 0 20px; color: #2B2B2B; line-height: 1.5; background: #FAF8F3; }
+  h1, h2 { font-family: Georgia, serif; color: #0B1F3A; }
+  h1 { border-bottom: 2px solid #B08D3E; padding-bottom: 8px; }
+  code, pre { font-family: Menlo, "Courier New", monospace; font-size: 13px; }
+  pre { background: #0B1F3A; color: #F3EFE6; padding: 12px; border-radius: 6px; overflow-x: auto; }
+  li { margin-bottom: 6px; }
+  .nota { background: #fff; border: 1px solid #D9D2C3; border-radius: 6px; padding: 10px 14px; }
+</style>
+</head>
+<body>
+<h1>Libreria LAMBDA: componente aggiuntivo personale per Excel</h1>
+
+<p>Un pannello dentro Excel con le formule LAMBDA dello studio. Con un clic una formula viene inserita in Gestione nomi del file aperto e si usa come una funzione, per esempio <code>=IRPEF2026(B2)</code>. Non serve pubblicarlo sullo store: si installa solo sul proprio computer.</p>
+
+<h2>Cosa fa</h2>
+<ul>
+  <li><strong>Inserisci nel file</strong>: crea la funzione nel file aperto. Se esiste già, chiede conferma prima di sostituirla.</li>
+  <li><strong>Inserisci tutte</strong>: inserisce in un colpo tutte le formule della libreria.</li>
+  <li><strong>Nuova formula / Modifica / Elimina</strong>: gestisce la libreria. La formula si scrive nella sintassi italiana (SE, ARROTONDA, separatore punto e virgola). La descrizione diventa il commento in Gestione nomi.</li>
+  <li><strong>Leggi dal file aperto</strong>: copia nella libreria le LAMBDA già presenti nel file. Excel le restituisce in inglese (IF, ROUND, virgola): il pannello le segna come "sintassi inglese" e le reinserisce correttamente.</li>
+  <li><strong>Backup</strong>: mostra la libreria come testo da copiare in un file; incollando un backup si ripristina.</li>
+</ul>
+<p>Formule già incluse: IRPEF2025, IRPEF2026 (imposta lorda, escluse detrazioni e addizionali), CON_IVA e SCORPORO_IVA al 22%.</p>
+
+<h2>Installazione (una sola volta)</h2>
+<p>Un componente aggiuntivo di Office è una piccola pagina web: Excel la carica da un indirizzo <strong>https</strong>. Per questo i file vanno pubblicati online. Il modo gratuito più semplice è GitHub Pages.</p>
+
+<h3>1. Pubblicare i file</h3>
+<ol>
+  <li>Crea un account gratuito su github.com (se non lo hai già).</li>
+  <li>Crea un nuovo repository pubblico chiamato <code>libreria-lambda</code>.</li>
+  <li>Carica tutti i file di questa cartella (comprese la cartella <code>assets</code>) con <em>Add file › Upload files</em>.</li>
+  <li>Vai su <em>Settings › Pages</em>, scegli <em>Deploy from a branch</em>, ramo <code>main</code>, cartella <code>/ (root)</code>, e salva.</li>
+  <li>Dopo un minuto l'indirizzo sarà <code>https://TUO-NOME-UTENTE.github.io/libreria-lambda</code>. Aprilo nel browser e aggiungi <code>/taskpane.html</code>: deve comparire il pannello.</li>
+</ol>
+<p class="nota">Online ci sono solo il pannello e le formule di partenza. Le formule che aggiungi tu restano sul tuo computer. Non mettere mai dati dei clienti nelle descrizioni.</p>
+
+<h3>2. Inserire l'indirizzo nel manifest</h3>
+<p>Nel Terminale, dalla cartella di questi file, sostituisci <code>TUO-NOME-UTENTE</code> con il tuo nome utente GitHub:</p>
+<pre>sed -i '' 's#https://INDIRIZZO-DA-SOSTITUIRE#https://TUO-NOME-UTENTE.github.io/libreria-lambda#g' manifest.xml</pre>
+<p>In alternativa apri <code>manifest.xml</code> con TextEdit e usa <em>Trova e sostituisci</em> su tutto il testo <code>https://INDIRIZZO-DA-SOSTITUIRE</code>.</p>
+
+<h3>3. Installare in Excel per Mac</h3>
+<ol>
+  <li>Chiudi Excel.</li>
+  <li>Nel Finder premi <strong>Cmd+Maiusc+G</strong> e incolla:<br><code>~/Library/Containers/com.microsoft.Excel/Data/Documents/wef</code><br>Se la cartella <code>wef</code> non esiste, creala.</li>
+  <li>Copia lì il file <code>manifest.xml</code> (già modificato al passo 2).</li>
+  <li>Riapri Excel e un file qualsiasi: nella scheda <strong>Home</strong> compare il pulsante <strong>Formule LAMBDA</strong>. Se non c'è, cercalo tra i componenti aggiuntivi della scheda Home.</li>
+</ol>
+
+<h2>Uso quotidiano</h2>
+<ol>
+  <li>Apri il file di lavoro e premi <strong>Formule LAMBDA</strong>.</li>
+  <li>Premi <strong>Inserisci nel file</strong> sulla formula che ti serve.</li>
+  <li>Nel foglio scrivi <code>=IRPEF2026(B2)</code>.</li>
+</ol>
+<p>La formula resta salvata nel file, quindi funziona anche per chi riceve il file senza avere il componente aggiuntivo.</p>
+
+<h2>Aggiornare o rimuovere</h2>
+<ul>
+  <li>Per aggiornare il pannello ricarica i file su GitHub; se Excel mostra ancora la versione vecchia, chiudi e riapri Excel.</li>
+  <li>Per rimuoverlo togli <code>manifest.xml</code> dalla cartella <code>wef</code> e riavvia Excel.</li>
+  <li>Prima di svuotare la cache di Office o cambiare computer, fai un <strong>Backup</strong>: la libreria personale è salvata solo su questo computer.</li>
+</ul>
+
+<h2>Requisiti</h2>
+<p>Excel per Microsoft 365 o Excel 2024 (le funzioni LAMBDA non esistono nelle versioni precedenti). Le formule IRPEF vanno aggiornate quando cambiano soglie o aliquote: verificale sempre con i casi di prova prima di usarle sui clienti.</p>
+</body>
+</html>

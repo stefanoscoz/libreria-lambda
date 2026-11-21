@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Libreria LAMBDA</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="stylesheet" href="taskpane.css">
+</head>
+<body>
+  <header>
+    <h1>Libreria LAMBDA</h1>
+    <p class="sub">Le formule dello studio, pronte da inserire nel file aperto.</p>
+  </header>
+
+  <div id="stato" class="stato" role="status" aria-live="polite"></div>
+
+  <section class="barra">
+    <input id="cerca" type="search" placeholder="Cerca per nome o descrizione" aria-label="Cerca formula">
+    <div class="pulsanti">
+      <button id="btnNuova" class="primario">Nuova formula</button>
+      <button id="btnTutte">Inserisci tutte</button>
+      <button id="btnDalFile">Leggi dal file aperto</button>
+      <button id="btnBackup">Backup</button>
+    </div>
+  </section>
+
+  <section id="modulo" class="modulo nascosto" aria-label="Formula">
+    <h2 id="moduloTitolo">Nuova formula</h2>
+    <label for="fNome">Nome</label>
+    <input id="fNome" type="text" placeholder="Es. IRPEF2026" autocomplete="off">
+    <label for="fDescr">Descrizione (diventa il commento in Gestione nomi)</label>
+    <input id="fDescr" type="text" maxlength="255" placeholder="Cosa calcola, norma e data di verifica">
+    <label for="fFormula">Formula, nella sintassi italiana (SE, ARROTONDA, separatore ;)</label>
+    <textarea id="fFormula" rows="7" spellcheck="false" placeholder="=LAMBDA(importo; importo*1,22)"></textarea>
+    <div class="pulsanti">
+      <button id="btnSalva" class="primario">Salva nella libreria</button>
+      <button id="btnAnnulla">Annulla</button>
+    </div>
+  </section>
+
+  <section id="backup" class="modulo nascosto" aria-label="Backup">
+    <h2>Backup della libreria</h2>
+    <p class="nota">Per salvare: copia il testo e incollalo in un file. Per ripristinare: incolla qui un backup e premi Ripristina.</p>
+    <textarea id="fBackup" rows="8" spellcheck="false"></textarea>
+    <div class="pulsanti">
+      <button id="btnRipristina" class="primario">Ripristina</button>
+      <button id="btnChiudiBackup">Chiudi</button>
+    </div>
+  </section>
+
+  <ul id="elenco" class="elenco"></ul>
+
+  <footer>
+    <p>Le formule restano su questo computer. Prima di usarle sui clienti, verificale con i casi di prova.</p>
+  </footer>
+
+  <script src="taskpane.js"></script>
+</body>
+</html>
