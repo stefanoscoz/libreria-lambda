@@ -42,6 +42,17 @@
 
   function $(id) { return document.getElementById(id); }
 
+  var ICONE = {
+    inserisci: '<path d="M10 3v10M6 9l4 4 4-4"/><path d="M4 16h12"/>',
+    modifica: '<path d="M12.5 4.5l3 3L8 15H5v-3z"/><path d="M11 6l3 3"/>',
+    elimina: '<path d="M4 6h12M8 6V4h4v2M6 6l1 10h6l1-10"/>',
+    freccia: '<path d="M7 5l5 5-5 5"/>',
+    ok: '<circle cx="10" cy="10" r="7"/><path d="M7 10.2l2 2 4-4.4"/>',
+    errore: '<circle cx="10" cy="10" r="7"/><path d="M10 6.5v4.5M10 13.5v.01"/>',
+    info: '<circle cx="10" cy="10" r="7"/><path d="M10 9v4.5M10 6.5v.01"/>'
+  };
+  function svg(nome) { return '<svg viewBox="0 0 20 20" aria-hidden="true">' + ICONE[nome] + '</svg>'; }
+
   // ---------- archivio ----------
   function carica() {
     try {
@@ -68,8 +79,10 @@
   var timerStato = null;
   function messaggio(testo, tipo) {
     var s = $("stato");
-    s.textContent = testo;
-    s.className = "stato " + (tipo || "info");
+    tipo = tipo || "info";
+    s.innerHTML = svg(tipo) + "<span></span>";
+    s.lastChild.textContent = testo;
+    s.className = "stato " + tipo;
     clearTimeout(timerStato);
     if (tipo === "ok") timerStato = setTimeout(function () { s.className = "stato"; }, 5000);
   }
@@ -78,6 +91,7 @@
     var filtro = $("cerca").value.trim().toLowerCase();
     var ul = $("elenco");
     ul.innerHTML = "";
+    $("conteggio").textContent = libreria.length === 1 ? "1 formula" : libreria.length + " formule";
     var voci = libreria.slice().sort(function (a, b) { return a.nome.localeCompare(b.nome); })
       .filter(function (v) {
         return !filtro || v.nome.toLowerCase().indexOf(filtro) >= 0 ||
@@ -86,7 +100,7 @@
     if (!voci.length) {
       var li0 = document.createElement("li");
       li0.className = "vuoto";
-      li0.textContent = libreria.length ? "Nessuna formula trovata." : "La libreria è vuota: aggiungi una formula.";
+      li0.textContent = libreria.length ? "Nessuna formula trovata." : "La libreria è vuota: aggiungi una formula con Nuova.";
       ul.appendChild(li0);
       return;
     }
@@ -94,41 +108,49 @@
       var li = document.createElement("li");
       li.className = "voce";
 
-      var t = document.createElement("div");
+      var riga = document.createElement("div");
+      riga.className = "riga";
+      var titolo = document.createElement("div");
+      titolo.className = "titolo";
       var nome = document.createElement("span");
       nome.className = "nome"; nome.textContent = v.nome;
-      var tag = document.createElement("span");
-      tag.className = "tag"; tag.textContent = v.sintassi === "en" ? "sintassi inglese" : "sintassi italiana";
-      t.appendChild(nome); t.appendChild(tag);
-      li.appendChild(t);
+      var pill = document.createElement("span");
+      pill.className = "pillola" + (v.sintassi === "en" ? " en" : "");
+      pill.textContent = v.sintassi === "en" ? "EN" : "IT";
+      pill.title = v.sintassi === "en" ? "Formula in sintassi inglese (letta da un file)" : "Formula in sintassi italiana";
+      titolo.appendChild(nome); titolo.appendChild(pill);
+      riga.appendChild(titolo);
 
-      if (v.descrizione) {
-        var d = document.createElement("div");
-        d.className = "descr"; d.textContent = v.descrizione;
-        li.appendChild(d);
-      }
+      var strumenti = document.createElement("div");
+      strumenti.className = "strumenti";
+      strumenti.appendChild(pulsante("Inserisci", "inserisci", "inserisci", function (b) { inserisciUna(v, b); }, !inExcel, "Inserisci " + v.nome + " nel file"));
+      strumenti.appendChild(pulsante("", "icona", "modifica", function () { apriModulo(v); }, false, "Modifica " + v.nome));
+      strumenti.appendChild(pulsante("", "icona pericolo", "elimina", function (b) { elimina(v, b); }, false, "Elimina " + v.nome));
+      riga.appendChild(strumenti);
+      li.appendChild(riga);
 
       var det = document.createElement("details");
-      var sum = document.createElement("summary"); sum.textContent = "Mostra la formula";
+      var sum = document.createElement("summary");
+      var breve = document.createElement("span");
+      breve.className = "breve";
+      breve.textContent = v.descrizione || "Mostra la formula";
+      sum.appendChild(breve);
+      sum.insertAdjacentHTML("beforeend", svg("freccia"));
+      det.appendChild(sum);
       var pre = document.createElement("pre"); pre.textContent = v.formula;
-      det.appendChild(sum); det.appendChild(pre);
+      det.appendChild(pre);
       li.appendChild(det);
-
-      var p = document.createElement("div");
-      p.className = "pulsanti";
-      p.appendChild(pulsante("Inserisci nel file", "primario", function (b) { inserisciUna(v, b); }, !inExcel));
-      p.appendChild(pulsante("Modifica", "", function () { apriModulo(v); }));
-      p.appendChild(pulsante("Elimina", "attenzione", function (b) { elimina(v, b); }));
-      li.appendChild(p);
 
       ul.appendChild(li);
     });
   }
 
-  function pulsante(testo, classe, fn, disabilitato) {
+  function pulsante(testo, classe, icona, fn, disabilitato, etichetta) {
     var b = document.createElement("button");
-    b.textContent = testo;
+    b.innerHTML = (icona ? svg(icona) : "") + (testo ? "<span></span>" : "");
+    if (testo) b.lastChild.textContent = testo;
     if (classe) b.className = classe;
+    if (etichetta) { b.setAttribute("aria-label", etichetta); b.title = etichetta; }
     if (disabilitato) { b.disabled = true; b.title = "Disponibile solo dentro Excel"; }
     b.addEventListener("click", function () { fn(b); });
     return b;
@@ -137,11 +159,12 @@
   // conferma con un secondo clic entro 4 secondi (alert e confirm non funzionano nei componenti aggiuntivi)
   function chiediConferma(chiave, bottone, testoConferma) {
     if (daConfermare[chiave]) { delete daConfermare[chiave]; return true; }
-    var originale = bottone.textContent;
+    var html = bottone.innerHTML, classe = bottone.className;
     daConfermare[chiave] = true;
     bottone.textContent = testoConferma;
+    if (/icona/.test(classe)) bottone.className = "conferma";
     setTimeout(function () {
-      if (daConfermare[chiave]) { delete daConfermare[chiave]; bottone.textContent = originale; }
+      if (daConfermare[chiave]) { delete daConfermare[chiave]; bottone.innerHTML = html; bottone.className = classe; }
     }, 4000);
     return false;
   }
