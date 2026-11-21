@@ -5,13 +5,13 @@
            xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
            xsi:type="TaskPaneApp">
   <Id>95de80d9-f4f0-41b6-9a96-5a9b5a260c69</Id>
-  <Version>1.0.0.1</Version>
+  <Version>1.0.2.0</Version>
   <ProviderName>Studio Scoz</ProviderName>
   <DefaultLocale>it-IT</DefaultLocale>
   <DisplayName DefaultValue="Libreria LAMBDA"/>
   <Description DefaultValue="Raccolta personale di formule LAMBDA da inserire nella cartella di lavoro aperta."/>
-  <IconUrl DefaultValue="https://stefanoscoz.github.io/libreria-lambda/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://stefanoscoz.github.io/libreria-lambda/assets/icon-64.png"/>
+  <IconUrl DefaultValue="https://stefanoscoz.github.io/libreria-lambda/assets/icon-32.png?v=1.0.2"/>
+  <HighResolutionIconUrl DefaultValue="https://stefanoscoz.github.io/libreria-lambda/assets/icon-64.png?v=1.0.2"/>
   <SupportUrl DefaultValue="https://stefanoscoz.github.io/libreria-lambda/LEGGIMI.html"/>
   <AppDomains>
     <AppDomain>https://stefanoscoz.github.io</AppDomain>
@@ -25,7 +25,7 @@
     </Sets>
   </Requirements>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://stefanoscoz.github.io/libreria-lambda/taskpane.html"/>
+    <SourceLocation DefaultValue="https://stefanoscoz.github.io/libreria-lambda/taskpane.html?v=1.0.2"/>
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -71,14 +71,14 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://stefanoscoz.github.io/libreria-lambda/assets/icon-16.png"/>
-        <bt:Image id="Icon.32x32" DefaultValue="https://stefanoscoz.github.io/libreria-lambda/assets/icon-32.png"/>
-        <bt:Image id="Icon.80x80" DefaultValue="https://stefanoscoz.github.io/libreria-lambda/assets/icon-80.png"/>
+        <bt:Image id="Icon.16x16" DefaultValue="https://stefanoscoz.github.io/libreria-lambda/assets/icon-16.png?v=1.0.2"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://stefanoscoz.github.io/libreria-lambda/assets/icon-32.png?v=1.0.2"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://stefanoscoz.github.io/libreria-lambda/assets/icon-80.png?v=1.0.2"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://stefanoscoz.github.io/libreria-lambda/LEGGIMI.html"/>
         <bt:Url id="Commands.Url" DefaultValue="https://stefanoscoz.github.io/libreria-lambda/commands.html"/>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://stefanoscoz.github.io/libreria-lambda/taskpane.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://stefanoscoz.github.io/libreria-lambda/taskpane.html?v=1.0.2"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GetStarted.Title" DefaultValue="Libreria LAMBDA pronta"/>
